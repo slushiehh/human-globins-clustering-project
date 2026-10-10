@@ -1,0 +1,16 @@
+sequence_id,accession,known_subfamily
+alpha,NP_000508.1,Alpha-globin
+zeta,NP_005323.1,Alpha-globin
+theta-1,NP_005322.1,Alpha-globin
+mu,NP_001003938.1,Alpha-globin
+beta,NP_000509.1,Beta-globin
+delta,NP_000510.1,Beta-globin
+gamma-1,NP_000550.2,Beta-globin
+gamma-2,NP_000175.1,Beta-globin
+epsilon,NP_005321.1,Beta-globin
+myoglobin-1,NP_001349775.1,Myoglobin
+myoglobin-2,NP_001369741.1,Myoglobin
+neuroglobin,NP_067080.1,Neuroglobin
+cytoglobin,NP_599030.1,Cytoglobin
+cytoglobin-X1,XP_005257062.1,Cytoglobin
+cytoglobin-X2,XP_016879605.1,Cytoglobin

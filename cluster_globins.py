@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import os
-=======
 from pathlib import Path
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -14,18 +10,9 @@ from sklearn.decomposition import PCA
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, silhouette_score
 from sklearn.preprocessing import StandardScaler
 
-<<<<<<< HEAD
-OUTPUT = "output"
-FASTA_PATH = "data/globin_family.fasta"
-LABELS_PATH = "data/known_subfamilies.csv"
-
-
-
-=======
 OUTPUT = Path("output")
 FASTA_PATH = Path("data/globin_family.fasta")
 LABELS_PATH = Path("data/known_subfamilies.csv")
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 
 ####### LOAD SEQUENCES #######
 
@@ -36,12 +23,6 @@ def load_sequences(fasta_path):
         records[record.id] = ungapped
     return records
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 #### FEATURES ######
 
 def sequence_features(sequence):
@@ -54,23 +35,12 @@ def sequence_features(sequence):
     features["gravy"] = analysis.gravy()
     return features
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 def build_feature_table(sequences):
     rows = {seq_id: sequence_features(seq) for seq_id, seq in sequences.items()}
     df = pd.DataFrame.from_dict(rows, orient="index")
     df.index.name = "sequence_id"
     return df
 
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 ##### K-MEANS SILHOUETTE SCORE #####
 
 def choose_k_by_silhouette(pca, k_range):
@@ -81,30 +51,15 @@ def choose_k_by_silhouette(pca, k_range):
     best_k = max(scores, key=scores.get)
     return best_k, scores
 
-<<<<<<< HEAD
-
-
-
-
-###### MAIN #######
-
-def main():
-    os.makedirs(OUTPUT, exist_ok=True)
-=======
 ###### MAIN #######
 
 def main():
     Path(OUTPUT).mkdir(exist_ok=True)
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 
     sequences = load_sequences(FASTA_PATH)
 
     feature_df = build_feature_table(sequences)
-<<<<<<< HEAD
-    feature_df.to_csv(f"{OUTPUT}/features_table.csv")
-=======
     feature_df.to_csv(OUTPUT/"features_table.csv")
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 
     labels_df = pd.read_csv(LABELS_PATH, index_col="sequence_id")
     labels_df = labels_df.loc[feature_df.index] 
@@ -116,22 +71,11 @@ def main():
     scaler = StandardScaler()
     scaled = scaler.fit_transform(feature_df.values)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     pca_full = PCA()
     pca = pca_full.fit_transform(scaled)
     pca_2d = PCA(n_components=2)
     pca2 = pca_2d.fit_transform(scaled)
 
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     # Choose k using silhouette method
     k_range = range(2, 8)
     best_k, silhouette_scores = choose_k_by_silhouette(pca, k_range)
@@ -147,19 +91,9 @@ def main():
     plt.title("Choosing k for K-Means")
     plt.legend()
     plt.tight_layout()
-<<<<<<< HEAD
-    plt.savefig(f"{OUTPUT}/silhouette_scores.png", dpi=150)
-    plt.close()
-
-
-
-
-
-=======
     plt.savefig(OUTPUT/"silhouette_scores.png", dpi=150)
     plt.close()
 
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     # Table comparing K-means clustering with silhouette optimal k clusters vs. true number of subfamilies
     kmeans_labels = {}
     rows = []
@@ -171,11 +105,6 @@ def main():
     print("\nSimilarity between K-Means clustering vs. actual known subfamilies:")
     print(pd.DataFrame(rows, columns=["clustering", "k", "ARI", "NMI"]).to_string(index=False))
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     # PCA plot coloured based on silhouette optimal K-Means clusters
     plt.figure(figsize=(7, 6))
     for cluster_id in sorted(set(kmeans_labels["silhouette_optimal"])):
@@ -188,11 +117,7 @@ def main():
     plt.title(f"K-Means clusters (k={best_k}) in PCA space")
     plt.legend()
     plt.tight_layout()
-<<<<<<< HEAD
-    plt.savefig(f"{OUTPUT}/pca_by_silhouette_optimal_kmeans_cluster.png", dpi=150)
-=======
     plt.savefig(OUTPUT/"pca_by_silhouette_optimal_kmeans_cluster.png", dpi=150)
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     plt.close()
 
     # PCA plot coloured based on K-Means clusters of K=5 known subfamilies 
@@ -207,17 +132,9 @@ def main():
     plt.title(f"K-Means clusters (k={n_known_families}) in PCA space")
     plt.legend()
     plt.tight_layout()
-<<<<<<< HEAD
-    plt.savefig(f"{OUTPUT}/pca_by_true_subfamilies_kmeans_cluster.png", dpi=150)
-    plt.close()
-
-
-
-=======
     plt.savefig(OUTPUT/"pca_by_true_subfamilies_kmeans_cluster.png", dpi=150)
     plt.close()
 
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     # PCA plot coloured based on true known subfamilies 
     plt.figure(figsize=(7, 6))
     for family in sorted(true_family.unique()):
@@ -230,20 +147,9 @@ def main():
     plt.title("True globin subfamilies in PCA space")
     plt.legend()
     plt.tight_layout()
-<<<<<<< HEAD
-    plt.savefig(f"{OUTPUT}/pca_by_true_family.png", dpi=150)
-    plt.close()
-
-
-
-
-
-
-=======
     plt.savefig(OUTPUT/"pca_by_true_family.png", dpi=150)
     plt.close()
 
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
     # Hierarchical clustering dendrogram   
     linkage_matrix = linkage(pca, method="average")
     leaf_labels = [f"{seq_id} ({true_family[seq_id]})" for seq_id in feature_df.index]
@@ -252,15 +158,8 @@ def main():
     plt.title("Hierarchical clustering of human globin family")
     plt.xlabel("Distance (PCA space)")
     plt.tight_layout()
-<<<<<<< HEAD
-    plt.savefig(f"{OUTPUT}/dendrogram.png", dpi=150)
-    plt.close()
-
-
-=======
     plt.savefig(OUTPUT/"dendrogram.png", dpi=150)
     plt.close()
 
->>>>>>> 1ef0821 (Used Path instead of os and removed new lines to fit formatting conventions)
 if __name__ == "__main__":
     main()

@@ -11,8 +11,8 @@ from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, s
 from sklearn.preprocessing import StandardScaler
 
 OUTPUT = Path("output")
-FASTA_PATH = Path("data/globin_family.fasta")
-LABELS_PATH = Path("data/known_subfamilies.csv")
+FASTA_PATH = Path("data/sequence.fasta")
+LABELS_PATH = Path("data/globins.csv")
 
 ####### LOAD SEQUENCES #######
 
@@ -58,12 +58,14 @@ def main():
 
     sequences = load_sequences(FASTA_PATH)
 
+    
+    labels_df = pd.read_csv(LABELS_PATH, index_col="NCBI")
     feature_df = build_feature_table(sequences)
+    feature_df = feature_df.rename(index=labels_df["name"])
     feature_df.to_csv(OUTPUT/"features_table.csv")
-
-    labels_df = pd.read_csv(LABELS_PATH, index_col="sequence_id")
+    labels_df = labels_df.set_index("name")
     labels_df = labels_df.loc[feature_df.index] 
-    true_family = labels_df["known_subfamily"]
+    true_family = labels_df["gene_cluster"]
 
     # Standardize since features are on different scales 
     # (Molecular weight of globins are in the thousands whilst

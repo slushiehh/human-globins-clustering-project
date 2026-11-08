@@ -5,8 +5,7 @@ without using sequence alignment?
 
 ## Data
 
-15 human globin protein sequences from NCBI RefSeq. Accessions and known subfamilies are in
-`data/known_subfamilies.csv`.
+Globin sequences from NCBI Protein which were then aligned with COBALT before downloading as a FASTA file.
 
 ## Method
 
@@ -30,8 +29,3 @@ With k = 3, the globins split into hemoglobins, myoglobins and the cellular glob
 The silhouette scores are low (~0.2-0.3) and close together across different k
 number of clusters, so the data don't point strongly to any one number of clusters.
 
-## Limitations
-
-- Amino acid composition as features for K-Means clustering fails to account for 
-  residue order. Whilst protein families are usually grouped by sequence similarity
-  from sequence alignments, which does account for residue order.

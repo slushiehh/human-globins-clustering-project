@@ -1,0 +1,16 @@
+name,NCBI,gene_cluster
+alpha,NP_000508.1,alpha globin
+zeta,NP_005323.1,alpha globin
+theta-1,NP_005322.1,alpha globin
+mu,NP_001003938.1,alpha globin
+beta,NP_000509.1,beta globin
+delta,NP_000510.1,beta globin
+gamma-1,NP_000550.2,beta globin
+gamma-2,NP_000175.1,beta globin
+epsilon,NP_005321.1,beta globin
+myoglobin-1,NP_001349775.1,myoglobin
+myoglobin-2,NP_001369741.1,myoglobin
+neuroglobin,NP_067080.1,neuroglobin
+cytoglobin,NP_599030.1,cytoglobin
+cytoglobin-X1,XP_005257062.1,cytoglobin
+cytoglobin-X2,XP_016879605.1,cytoglobin
